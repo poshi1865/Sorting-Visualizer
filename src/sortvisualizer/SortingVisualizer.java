@@ -26,6 +26,7 @@ public class SortingVisualizer extends JPanel {
 	Keyboard key;
 
 	public int arr[];
+	public int temp[];
 	
 	public SortingVisualizer() {
 		init();
@@ -48,20 +49,22 @@ public class SortingVisualizer extends JPanel {
 			int r = random.nextInt(500);
 			arr[i] = r;
 		}
+		temp = arr;
 	}
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D graphics = (Graphics2D) g;
 		super.paintComponent(graphics);
-		
 		graphics.setFont(new Font("Consolas", 20, 20));
 		graphics.setColor(Color.red);
 		graphics.drawString("Press S to shuffle the array", 20, 20);
 		graphics.drawString("Press B to sort the array using Bubble Sort", 20, 40);
-		graphics.drawString("Press m to sort the array using Selection Sort", 20, 60);
+		graphics.drawString("Press M to sort the array using Selection Sort", 20, 60);
+		graphics.drawString("Press I to sort the array using Insertion Sort", 20, 80);
 		
 		graphics.setColor(Color.white);
 		for(int i = 0; i < width; i+=12) {
+			
 			graphics.fillRect(i, height-arr[i], 10, arr[i]);
 		}
 		graphics.dispose();
@@ -87,6 +90,8 @@ public class SortingVisualizer extends JPanel {
 			bubbleSort(arr);
 		if(key.s)
 			shuffleArray();
+		if(key.i)
+			insertionSort(arr);
 		key.update();
 	}
 	
@@ -142,14 +147,31 @@ public class SortingVisualizer extends JPanel {
 	        }
 	    }
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	//insertion sort
+	 void insertionSort(int arr[])
+	 {
+		 if(checkIfSorted(arr)) return;
+		 int n = arr.length;
+	     int i, key, j;
+	     for (i = 1; i < n; i++)
+	     {
+	         key = arr[i];
+	         j = i - 1;
+	  
+	         /* Move elements of arr[0..i-1], that are
+	         greater than key, to one position ahead
+	         of their current position */
+	         while (j >= 0 && arr[j] > key)
+	         {
+	             arr[j + 1] = arr[j];
+	             j = j - 1;
+	             
+	         }
+	         repaint();
+             sleepFor(8000000);
+	         arr[j + 1] = key;
+	     }
+	 }
 	
 	//Function to merge sort
 	public void merge(int b[], int c[], int a[], int p, int q, int n) {
