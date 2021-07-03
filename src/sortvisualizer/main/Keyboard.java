@@ -1,4 +1,4 @@
-package sortvisualizer;
+package sortvisualizer.main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

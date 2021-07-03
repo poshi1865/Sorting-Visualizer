@@ -1,21 +1,23 @@
-package sortvisualizer;
+package sortvisualizer.main;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class SortingVisualizer extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
-	public static int width = 1280;
-	public static int height = 720;
+	private static int width = 1280;
+	private static int height = 720;
 	
 	private Random random = new Random();
 	private boolean running = true;
@@ -40,31 +42,26 @@ public class SortingVisualizer extends JPanel {
 	
 	private void init() {
 		setPreferredSize(new Dimension(width, height));
-		setBackground(Color.black);
+		setBackground(Color.lightGray);
 	}
 	
 	private void initArray() {
 		arr = new int[width];
 		for(int i = 0; i < width; i++) {
 			int r = random.nextInt(500);
-			arr[i] = r;
+			arr[i] = r+100;
+			System.out.println(arr[i]);
 		}
 		temp = arr;
 	}
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D graphics = (Graphics2D) g;
 		super.paintComponent(graphics);
-		graphics.setFont(new Font("Consolas", 20, 20));
-		graphics.setColor(Color.red);
-		graphics.drawString("Press S to shuffle the array", 20, 20);
-		graphics.drawString("Press B to sort the array using Bubble Sort", 20, 40);
-		graphics.drawString("Press M to sort the array using Selection Sort", 20, 60);
-		graphics.drawString("Press I to sort the array using Insertion Sort", 20, 80);
 		
-		graphics.setColor(Color.white);
+		graphics.setColor(Color.gray);
 		for(int i = 0; i < width; i+=12) {
-			
 			graphics.fillRect(i, height-arr[i], 10, arr[i]);
 		}
 		graphics.dispose();
@@ -76,7 +73,7 @@ public class SortingVisualizer extends JPanel {
 	public void shuffleArray() {
 		Random r = new Random();
 		for(int i = 0; i < arr.length; i++) {
-			arr[i] = r.nextInt(500);
+			arr[i] = r.nextInt(500)+100;
 			repaint();
 			sleepFor(1000000);
 		}
@@ -92,6 +89,7 @@ public class SortingVisualizer extends JPanel {
 			shuffleArray();
 		if(key.i)
 			insertionSort(arr);
+
 		key.update();
 	}
 	
@@ -148,7 +146,7 @@ public class SortingVisualizer extends JPanel {
 	    }
 	
 	//insertion sort
-	 void insertionSort(int arr[])
+	 public void insertionSort(int arr[])
 	 {
 		 if(checkIfSorted(arr)) return;
 		 int n = arr.length;
@@ -172,6 +170,8 @@ public class SortingVisualizer extends JPanel {
 	         arr[j + 1] = key;
 	     }
 	 }
+	 
+	 
 	
 	//Function to merge sort
 	public void merge(int b[], int c[], int a[], int p, int q, int n) {
@@ -233,20 +233,5 @@ public class SortingVisualizer extends JPanel {
 		return true;
 	}
 	
-	public static void main(String args[]) {
-		System.setProperty("sun.java2d.opengl", "true");
-		SortingVisualizer screen = new SortingVisualizer();
-
-		screen.frame = new JFrame(screen.title);
-		screen.frame.setSize(new Dimension(width, height));
-		screen.frame.setLocationRelativeTo(null);
-		screen.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		screen.frame.setResizable(false);
-		screen.frame.add(screen);
-		screen.frame.pack();
-		screen.frame.setVisible(true);
-		
-		screen.run();
-	}
 	
 }
