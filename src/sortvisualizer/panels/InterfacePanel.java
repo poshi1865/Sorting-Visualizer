@@ -29,7 +29,7 @@ public class InterfacePanel extends JPanel{
 		
 	private void init() {
 		setPreferredSize(new Dimension(width, height-15));
-		setBackground(Color.ORANGE);
+		setBackground(Color.lightGray);
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 
 		//logopanel
@@ -47,7 +47,7 @@ public class InterfacePanel extends JPanel{
 		Font font = new Font("Consolas", Font.BOLD, 20);
 		//Border border = BorderFactory.createMatteBorder(1,1,1,1,Color.green);
 		textpanel = new JPanel();
-		textpanel.setBackground(Color.orange);
+		textpanel.setBackground(Color.lightGray);
 		textpanel.setPreferredSize(new Dimension(width-325, height-26));
 		textpanel.setLayout(new GridLayout(3, 2));
 

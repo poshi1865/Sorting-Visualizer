@@ -42,7 +42,7 @@ public class SortingVisualizer extends JPanel {
 	
 	private void init() {
 		setPreferredSize(new Dimension(width, height));
-		setBackground(Color.lightGray);
+		setBackground(Color.white);
 	}
 	
 	private void initArray() {
