@@ -6,13 +6,16 @@ import java.awt.event.KeyListener;
 public class Keyboard implements KeyListener{
 
 	public boolean[] keys = new boolean[120];
-	public boolean s, b, m, i;
+	public boolean s, b, m, i, q, e;
 	
 	public void update() {
 		s = keys[KeyEvent.VK_S];
 		b = keys[KeyEvent.VK_B];
 		m = keys[KeyEvent.VK_M];
 		i = keys[KeyEvent.VK_I];
+		q = keys[KeyEvent.VK_Q];
+		e = keys[KeyEvent.VK_E];
+
 	}
 	
 	@Override

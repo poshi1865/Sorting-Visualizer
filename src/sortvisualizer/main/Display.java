@@ -4,15 +4,16 @@ import javax.swing.JFrame;
 import sortvisualizer.panels.ContentPanel;
 
 public class Display extends JFrame{
-	
+	private static final long serialVersionUID = 1L;
+
 	private ContentPanel contentpanel;
 
 	public Display() {
 		//initialize the display and add the content panel
 		init();
 	}
+
 	private void init() {
-		
 		contentpanel = new ContentPanel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
