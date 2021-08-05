@@ -3,16 +3,32 @@ Here are some screenshots:
 
 Shuffled Array
 
-![shuffled array](https://user-images.githubusercontent.com/63964405/124223178-daba2200-db20-11eb-867b-f4da6246d366.png)
+![shuffled array](https://user-images.githubusercontent.com/63964405/128339797-515e1fe4-cfc5-4582-bfd3-ece2f66c7dc1.png)
+
 
 Bubble Sort
 
-![bubble sort](https://user-images.githubusercontent.com/63964405/124223244-f9b8b400-db20-11eb-8aa4-c61f93d49d14.png)
+![bubble sort](https://user-images.githubusercontent.com/63964405/128339837-238c3f09-52b9-4f97-8063-24f39bdd6cea.png)
+
 
 Selection Sort
 
-![selection sort](https://user-images.githubusercontent.com/63964405/124223280-0e954780-db21-11eb-811a-860708c088d0.png)
+![selection sort](https://user-images.githubusercontent.com/63964405/128339870-59f7f84d-3777-4d35-8b34-5d6678a26e51.png)
+
+
+Merge Sort
+
+![mergesort](https://user-images.githubusercontent.com/63964405/128339899-4db1514c-57d7-453c-b4b6-fc34ed0bbd1d.png)
+
+Quick Sort
+
+![quicksort](https://user-images.githubusercontent.com/63964405/128339951-0424f11f-61be-4add-a780-16e497b5de1c.png)
 
 Insertion Sort
 
-![insertion sort](https://user-images.githubusercontent.com/63964405/124223303-1bb23680-db21-11eb-8c63-53081d9b1a92.png)
+![insertion sort](https://user-images.githubusercontent.com/63964405/128339978-1aedd08d-315e-4f6e-bc12-e529c2475e3e.png)
+
+Array getting shuffled
+
+![array getting shuffled](https://user-images.githubusercontent.com/63964405/128340018-fb9d44c7-d558-4742-aa2e-039d3724244f.png)
+
