@@ -1,4 +1,4 @@
-This is a sorting visualizer written in java, which animates a few popular sorting algorithms. Uses the java swing library.
+This is a sorting visualizer written in java, which animates a few popular sorting algorithms. The code is written purely in java and uses the java swing library.
 Here are some screenshots: 
 
 Shuffled Array
