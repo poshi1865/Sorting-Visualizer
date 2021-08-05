@@ -2,10 +2,13 @@ package sortvisualizer.main;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.Random;
 import javax.swing.JPanel;
+import sortvisualizer.panels.InterfacePanel;
 
 public class SortingVisualizer extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -13,22 +16,34 @@ public class SortingVisualizer extends JPanel {
 	private static int width = 1280;
 	private static int height = 600;
 	
+	
 	private Random random = new Random();
 	private boolean running = true;
 	
-	String title = "Sorting Visualizer";
+	private String timeComplexity = "";
+	private String sortName = "";
+	private String description = "";
+	private String description2 = "";
+	private Font headFont;
+	private Font descFont;
+
+	public InterfacePanel interfacePanel;
 	
 	Keyboard key;
 
 	public int arr[];
 	public int prevarr[];
 	
-	private int barwidth = 10;
+	private int barwidth = 3;
 	private int arraysize = width/barwidth;
 
 	private Color color = Color.white;
+	
+	private int olderSliderValue;
+	private Color olderColorValue;
 
-	private long delay = 80000000;
+	private long delay = 12000000;
+	private long shuffleDelay = delay / 5; 
 	
 	public SortingVisualizer() {
 		init();
@@ -38,11 +53,17 @@ public class SortingVisualizer extends JPanel {
 		this.setFocusable(true);
 		this.requestFocus();
 		addKeyListener(key);
+		
+		headFont = new Font("Book Antiqua", Font.BOLD, 25);
+		descFont = new Font("Book Antiqua", Font.BOLD, 16);
+
+		interfacePanel = new InterfacePanel();
+
 	}
 	
 	private void init() {
 		setPreferredSize(new Dimension(width, height));
-		setBackground(Color.gray);
+		setBackground(Color.decode("0x454142"));
 	}
 	
 	private void initArray() {
@@ -59,24 +80,33 @@ public class SortingVisualizer extends JPanel {
 	public void paintComponent(Graphics g) {
 		Graphics2D graphics = (Graphics2D) g;
 		super.paintComponent(graphics);
+
+		//*****************************TURN ON ANTIALIASING******************************************
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		//*******************************************************************************************
 		
 		int x = 0;
-		graphics.setColor(color);
+		graphics.setFont(headFont);
+		graphics.setColor(Color.white);
+		graphics.drawString(sortName, 2, 20);
+		graphics.drawString(timeComplexity, 2, 45);
+		graphics.setFont(descFont);
+		graphics.drawString(description, 2, 70);
+		graphics.drawString(description2, 2, 90);
+		
+		graphics.setColor(interfacePanel.getComboBoxColorValue());
+		
 		for(int i = 0; i < arraysize; i++) {
-			if(arr[i] != prevarr[i]) {
-				graphics.setColor(Color.white);
-				graphics.fillRect(x, height-arr[i], barwidth, arr[i]);
-			}
-			else 
 			graphics.fillRect(x, height-arr[i], barwidth, arr[i]);
 			x += barwidth;
 		}
-		for(int i = 0; i < arraysize; i++) {
-			prevarr[i] = arr[i];
+		for(int j = 0; j < arraysize; j++) {
+			prevarr[j] = arr[j];
 		}
 
 		graphics.dispose();
 	}
+
 	public void run() {
 		while(running) update();
 	}
@@ -87,33 +117,74 @@ public class SortingVisualizer extends JPanel {
 			arr[i] = r; 
 			prevarr[i] = arr[i];
 			repaint();
-			sleepFor(10000000);
+			sleepFor(shuffleDelay);
 		}
+		sortName = "";
+		repaint();
 	}
 	
 	//Listen for key presses
 	public synchronized void update() {
 		if(key.m) {
+			sortName = "Merge Sort";
+			timeComplexity = "Time Complexity = O(nlogn)";
+			description = "Merge Sort is a divide and conquer algorithm that was invented by John Von Neumann in 1945 .It is an efficient, general purpose and comparision-based sorting algorithm.";
+			description2 = "We divide the unsorted array into n sub-arrays of one element each, and then merge the sub-arrays to produce new sorted sublists until only one sorted array is remaining.";
 			mergeSort(arr, arraysize);
 		}
 		if(key.b) {
+			sortName = "Bubble Sort";
+			timeComplexity = "Time Complexity = O(n^2)";
+			description = "Bubble sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.";
+			description2 = "This simple algorithm performs poorly in real world use and is used primarily as an educational tool. Efficient for (quite) small data sets.";
 			bubbleSort(arr);
 		}
 		if(key.s) {
 			color = Color.white;
+			sortName = "Shuffling the array....";
+			description = "";
+			description2 = "";
+			timeComplexity = "";
 			shuffleArray();
 		}
 		if(key.i) {
+			sortName = "Insertion Sort";
+			timeComplexity = "Time Complexity = O(n^2)";
+			description = "Insertion sort iterates, consuming one input element each repetition, and grows a sorted output list. At each iteration, insertion sort removes one element from";
+			description2 = "the input data, finds the location it belongs within the sorted list, and inserts it there. It repeats until no input elements remain. Efficient for (quite) small data sets.";
 			insertionSort(arr);
 		}
 		if(key.q) {
+			sortName = "Quick Sort";
+			timeComplexity = "Time Complexity = O(nlogn)";
+			description = "Quicksort was developed by British Computer scientist Tony Hoare in 1959. It is a divide-and-conquer algorithm which works by selecting a 'pivot'";
+			description2= "and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.";
 			quickSort(arr, 0, arraysize-1);
 		}
 		if(key.e) {
+			sortName = "Selection Sort";
+			timeComplexity = "Time Complexity = O(n^2)";
+			description = "Selection sort is an in-place sorting algorithm. It is inefficient on large lists. However, it is noted for its simplicity and has";
+			description2= "performance advantages over more complicated algorithms in certain situations, particularly where auxillary memory is limited.";
 			selectionSort(arr);
 		}
 
 		key.update();
+		
+		//slider updation
+		
+		if(interfacePanel.getDensitySliderValue() != olderSliderValue) {
+			barwidth = interfacePanel.getDensitySliderValue() / 10 +1;
+			arraysize = width / barwidth;
+			initArray();
+			repaint();
+		}
+		
+		if(interfacePanel.getComboBoxColorValue() != olderColorValue) 
+			repaint();
+
+		olderSliderValue = interfacePanel.getDensitySliderValue();
+		olderColorValue = interfacePanel.getComboBoxColorValue();
  	}
 	
 	//Function to sleep for a given amount of time
@@ -141,7 +212,7 @@ public class SortingVisualizer extends JPanel {
 				}
 			}
 			repaint();
-			sleepFor(delay);
+			sleepFor(interfacePanel.getSpeedSliderValue());
 		}
 	}
 	//Selection sort
@@ -164,7 +235,7 @@ public class SortingVisualizer extends JPanel {
 	            arr[min_idx] = arr[i];
 	            arr[i] = temp;
 	            repaint();
-				sleepFor(delay);
+				sleepFor(interfacePanel.getSpeedSliderValue());
 	        }
 	    }
 	
@@ -189,7 +260,7 @@ public class SortingVisualizer extends JPanel {
 	             
 	         }
 	         repaint();
-             sleepFor(delay);
+             sleepFor(interfacePanel.getSpeedSliderValue());
 	         arr[j + 1] = key;
 	     }
 	 }
@@ -199,7 +270,8 @@ public class SortingVisualizer extends JPanel {
 	//Function to merge sort
 	private void mergeSort(int arr[], int n)
 	{
-		int mergedelay = 20000000; 
+		if(checkIfSorted(arr)) return;
+		long mergedelay = 0; 
 		int curr_size;
 					 
 		int left_start;
@@ -220,7 +292,7 @@ public class SortingVisualizer extends JPanel {
 				merge(arr, left_start, mid, right_end);
 				repaint();
 				sleepFor(mergedelay);
-				mergedelay += 900000;
+				mergedelay += (interfacePanel.getSpeedSliderValue()/100);
 			}
 		}
 	}
@@ -303,7 +375,7 @@ public class SortingVisualizer extends JPanel {
                 arr[j] = temp;
             }
 			repaint();
-			sleepFor(7000000);
+			sleepFor((interfacePanel.getSpeedSliderValue() / 10) * 3);
         }
  
         // swap arr[i+1] and arr[high] (or pivot)
@@ -317,6 +389,7 @@ public class SortingVisualizer extends JPanel {
 
     private void quickSort(int arr[], int l, int h)
     {
+    	if(checkIfSorted(arr)) return;
         // Create an auxiliary stack
         int[] stack = new int[h - l + 1];
  
@@ -362,6 +435,4 @@ public class SortingVisualizer extends JPanel {
 		}
 		return true;
 	}
-	
-	
 }

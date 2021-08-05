@@ -15,6 +15,8 @@ public class Display extends JFrame{
 
 	private void init() {
 		contentpanel = new ContentPanel();
+		
+		setTitle("Sorting Visualizer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setContentPane(contentpanel);

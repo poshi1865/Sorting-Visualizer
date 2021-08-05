@@ -4,85 +4,142 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 
-import javax.swing.ImageIcon;
+import javax.swing.JSlider;
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class InterfacePanel extends JPanel{
+public class InterfacePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	public final int width = 1280;
-	private final int height = 120;
+
+	private final int width = 1280;
+	private final int height = 50;
 	
-	JPanel logopanel;
-	JPanel textpanel;
+	private int sliderMax = 700;
+	
+	private Font font;
+	
+	private Color componentColor = Color.white;
+
+	//Density panel declaration
+	private JPanel densityPanel;
+	public JSlider densitySlider;
+
+	//Color panel declaration
+	private JPanel colorPanel;
+	private JComboBox<String> colorBox;
+	
+	private JPanel speedPanel;
+	private JSlider speedSlider;
+
 	public InterfacePanel() {
 		init();
+		
+		font = new Font("Berlin Sans FB", Font.PLAIN, 17);
+		
+		//Density Panel
+		densityPanel = new JPanel();
+		densityPanel.setLayout(new BoxLayout(densityPanel, BoxLayout.Y_AXIS));
+		densityPanel.setBackground(componentColor);
+		
+		JLabel denseLabel = new JLabel("Array Density");
+		denseLabel.setFont(font);
+
+		densitySlider = new JSlider();
+		densitySlider.setBackground(componentColor);
+		densitySlider.setMaximum(sliderMax);
+		densitySlider.setValue(sliderMax/2);
+		densitySlider.setFocusable(false);
+		densitySlider.setInverted(true);
+
+		densityPanel.add(denseLabel);
+		densityPanel.add(densitySlider);
+		
+		
+		
+		//Color panel
+		colorPanel = new JPanel();
+		colorPanel.setBackground(componentColor);
+		colorBox = new JComboBox<>();
+		colorBox.setBackground(componentColor);
+		colorBox.setFont(font);
+		colorBox.addItem("White");
+		colorBox.addItem("Green");
+		colorBox.addItem("Red");
+		colorBox.addItem("Blue");
+		colorBox.addItem("Orange");
+		colorBox.addItem("Magenta");
+		colorBox.setFocusable(false);
+		colorPanel.add(colorBox);
+		
+		//Speed Panel
+		speedPanel = new JPanel();
+		speedPanel.setLayout(new BoxLayout(speedPanel, BoxLayout.Y_AXIS));
+		speedPanel.setBackground(componentColor);
+
+		JLabel speedLabel = new JLabel("Speed");
+		speedLabel.setFont(font);
+
+		speedSlider = new JSlider(1000000, 100000000);
+		speedSlider.setBackground(componentColor);
+		speedSlider.setInverted(true);
+		speedSlider.setFocusable(false);
+		speedPanel.add(speedLabel);
+		speedPanel.add(speedSlider);
+		
+		//ADDING EVERYTHING TO INTERFACE PANEL
+		add(densityPanel);
+		add(colorPanel);
+		add(speedPanel);
 	}
-		
+	
 	private void init() {
-		setPreferredSize(new Dimension(width, height-15));
-		setBackground(Color.lightGray);
-		setLayout(new FlowLayout(FlowLayout.LEFT));
-
-		//logopanel
-		logopanel = new JPanel();
-		logopanel.setSize(100, height);
-		logopanel.setBackground(Color.white);
-		ImageIcon icon = new ImageIcon("res/Logo.png");
-		JLabel logo = new JLabel(icon);
-		logopanel.add(logo);
+		setPreferredSize(new Dimension(width, height));
+		setBackground(Color.black);
+		setLayout(new FlowLayout(FlowLayout.LEFT, 200, height/7));
+	}
+	
+	public int getDensitySliderValue() {
+		return densitySlider.getValue();
+	}
+	
+	public Color getComboBoxColorValue() {
+		String s = (String) colorBox.getSelectedItem();
 		
-		//adding logo to Interface Panel
-		add(logopanel);
-		
-		//Text Panel
-		Font font = new Font("Consolas", Font.BOLD, 20);
-		//Border border = BorderFactory.createMatteBorder(1,1,1,1,Color.green);
-		textpanel = new JPanel();
-		textpanel.setBackground(Color.lightGray);
-		textpanel.setPreferredSize(new Dimension(width-325, height-26));
-		textpanel.setLayout(new GridLayout(3, 2));
-
-		//Creating all the labels
-		JLabel bubblelabel = new JLabel("Press S to Shuffle the array");
-		JLabel selectionlabel = new JLabel("Press E to perform Selection Sort"); 
-		JLabel insertionlabel = new JLabel("Press I to perform Insertion Sort");
-		JLabel mergelabel = new JLabel("Press M to perform Merge Sort");
-		JLabel quicklabel = new JLabel("Press Q to perform Quick Sort"); 
-		JLabel radixlabel = new JLabel("Press B to perform Bubble Sort");
-		
-		//setting fonts to the labels
-		bubblelabel.setFont(font);
-		//bubblelabel.setBorder(border); 
-
-		selectionlabel.setFont(font);
-		//selectionlabel.setBorder(border);
-		
-		insertionlabel.setFont(font);
-		//insertionlabel.setBorder(border);
-
-		mergelabel.setFont(font);
-		//mergelabel.setBorder(border);
-		
-		quicklabel.setFont(font);
-		//quicklabel.setBorder(border);
-		
-		radixlabel.setFont(font);
-		//radixlabel.setBorder(border);
-
-		//adding labels to the text panel
-		textpanel.add(bubblelabel);
-		textpanel.add(insertionlabel);
-		textpanel.add(selectionlabel);
-		textpanel.add(mergelabel);
-		textpanel.add(quicklabel);
-		textpanel.add(radixlabel);
-
-		//adding text panel to InterfacePanel
-		add(textpanel);
+		switch(s) {
+			case "White":
+				return Color.white;
+			case "Green":
+				return Color.green;
+			case "Red":
+				return Color.red;
+			case "Blue":
+				return Color.blue;
+			case "Orange":
+				return Color.orange;
+			case "Magenta":
+				return Color.magenta;
+		}
+		return Color.white;
+	}
+	
+	public int getSpeedSliderValue() {
+		return speedSlider.getValue();
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+

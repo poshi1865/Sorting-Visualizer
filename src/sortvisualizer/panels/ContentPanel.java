@@ -1,5 +1,4 @@
 package sortvisualizer.panels;
-
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
@@ -13,17 +12,18 @@ public class ContentPanel extends JPanel {
 	public final int height = 720;
 
 	public SortingVisualizer sortingpanel;
-	private InterfacePanel interfacepanel;
+	private InstructionsPanel instructionsPanel;
 
 	public ContentPanel() {
 
 		sortingpanel = new SortingVisualizer();
-		interfacepanel = new InterfacePanel();
+		instructionsPanel = new InstructionsPanel();
 		setPreferredSize(new Dimension(width, height));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		add(interfacepanel);
+
+		add(instructionsPanel);
+		add(sortingpanel.interfacePanel);
 		add(sortingpanel);
-		
 	}
 }
